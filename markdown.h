@@ -1,3 +1,7 @@
 #import <Foundation/Foundation.h>
 
-NSData* renderMarkdown(NSURL* url);
+#ifndef __private_extern
+#define __private_extern __attribute__((visibility("hidden")))
+#endif
+
+__private_extern NSData* renderMarkdown(NSURL* url);

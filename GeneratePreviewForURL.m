@@ -1,6 +1,7 @@
 #include <QuickLook/QuickLook.h>
 #import <Cocoa/Cocoa.h>
 #import "markdown.h"
+#include "main.h"
 
 /* -----------------------------------------------------------------------------
    Generate a preview for file

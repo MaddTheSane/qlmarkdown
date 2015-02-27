@@ -2,6 +2,7 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 #import "markdown.h"
+#include "main.h"
 
 /* -----------------------------------------------------------------------------
     Generate a thumbnail for file
