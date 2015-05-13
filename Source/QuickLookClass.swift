@@ -11,17 +11,14 @@ import CoreServices
 import QuickLook
 import WebKit
 
-//The minimum aspect ratio (width / height) of a thumbnail.
-private var MINIMUM_ASPECT_RATIO: CGFloat {
-	return (1.0/2.0)
-}
+/// The minimum aspect ratio (width / height) of a thumbnail.
+private let MINIMUM_ASPECT_RATIO: CGFloat = 1.0 / 2.0
 
 
 @objc final class QLMarkDownGenerator {
 	@objc(generatePreview:forURL:contentTypeUTI:options:) class func generatePreview(preview: QLPreviewRequest, url: CFURL, contentTypeUTI: CFString, options: CFDictionary) -> OSStatus {
 		if let data = renderMarkdown(url) {
-			let props = NSDictionary()
-			QLPreviewRequestSetDataRepresentation(preview, data, kUTTypeHTML, props)
+            QLPreviewRequestSetDataRepresentation(preview, data, kUTTypeHTML, [:])
 		}
 		return noErr
 	}
