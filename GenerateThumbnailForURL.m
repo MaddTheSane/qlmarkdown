@@ -32,11 +32,11 @@ OSStatus GenerateThumbnailForURL(void *thisInterface,
 
         WebView* webView = [[WebView alloc] initWithFrame: viewRect];
 		[webView scaleUnitSquareToSize: scaleSize];
-        [[[webView mainFrame] frameView] setAllowsScrolling:NO];
-        [[webView mainFrame] loadData: data
-                             MIMEType: @"text/html"
-                     textEncodingName: @"utf-8"
-                              baseURL: nil];
+        webView.mainFrame.frameView.allowsScrolling = NO;
+        [webView.mainFrame loadData: data
+                           MIMEType: @"text/html"
+                   textEncodingName: @"utf-8"
+                            baseURL: nil];
 
 		while([webView isLoading]) {
 			CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, true);
@@ -53,7 +53,7 @@ OSStatus GenerateThumbnailForURL(void *thisInterface,
 							graphicsContextWithGraphicsPort: (void*) context 
 													flipped: webView.flipped];
 
-			[webView displayRectIgnoringOpacity: [webView bounds]
+			[webView displayRectIgnoringOpacity: webView.bounds
 									  inContext: nsContext];
 
 			QLThumbnailRequestFlushContext(thumbnail, context);

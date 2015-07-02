@@ -10,22 +10,27 @@ NSData* renderMarkdown(NSURL* url)
                                                     error:nil];
 
     NSStringEncoding usedEncoding = 0;
-    NSError *e = nil;
 
-    NSString *source = [[NSString alloc] initWithContentsOfURL:url usedEncoding:&usedEncoding error:&e];
+    NSString *source = [[NSString alloc] initWithContentsOfURL:url usedEncoding:&usedEncoding error:NULL];
 
     if (usedEncoding == 0) {
         NSLog(@"Wasn't able to determine encoding for file “%@”", [url path]);
     }
 
+    NSString *NSOutput;
+    {
     char *output = convert_markdown_to_string([source UTF8String]);
+        NSOutput = [[NSString alloc] initWithBytesNoCopy:output length:strlen(output) encoding:NSUTF8StringEncoding freeWhenDone:YES];
+    }
+    if (!NSOutput) {
+        return nil;
+    }
     NSString *html = [NSString stringWithFormat:@"<!DOCTYPE html>"
                                                  "<meta charset=utf-8>"
                                                  "<style>%@</style>"
                                                  "<base href=\"%@\"/>"
                                                  "%@",
-                                                 styles, url, @(output)];
+                                                 styles, url, NSOutput];
 
-    free(output);
     return [html dataUsingEncoding:NSUTF8StringEncoding];
 }

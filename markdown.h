@@ -4,4 +4,4 @@
 #define __private_extern __attribute__((visibility("hidden")))
 #endif
 
-__private_extern NSData* renderMarkdown(NSURL* url);
+__private_extern NSData* __nullable renderMarkdown(NSURL* __nonnull url);
