@@ -23,8 +23,6 @@
 		AB40554414D008B3009A583A /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = AB40553F14D008B3009A583A /* config.h */; };
 		AB40554514D008B3009A583A /* mkdio.h in Headers */ = {isa = PBXBuildFile; fileRef = AB40554014D008B3009A583A /* mkdio.h */; };
 		AB40554614D008B3009A583A /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = AB40554114D008B3009A583A /* README.markdown */; };
-		AB40554714D008B3009A583A /* update.sh in Resources */ = {isa = PBXBuildFile; fileRef = AB40554214D008B3009A583A /* update.sh */; };
-		AB40554A14D00A6A009A583A /* update-discount.sh in Resources */ = {isa = PBXBuildFile; fileRef = AB40554914D00A6A009A583A /* update-discount.sh */; };
 		AB40555514D00CCC009A583A /* Csio.c in Sources */ = {isa = PBXBuildFile; fileRef = AB40555014D00CCC009A583A /* Csio.c */; };
 		AB40555614D00CCC009A583A /* emmatch.c in Sources */ = {isa = PBXBuildFile; fileRef = AB40555114D00CCC009A583A /* emmatch.c */; };
 		AB40555714D00CCC009A583A /* generate.c in Sources */ = {isa = PBXBuildFile; fileRef = AB40555214D00CCC009A583A /* generate.c */; };
@@ -264,8 +262,6 @@
 				4446D0240F41AD4700BAC3F4 /* styles.css in Resources */,
 				AB40554314D008B3009A583A /* blocktags in Resources */,
 				AB40554614D008B3009A583A /* README.markdown in Resources */,
-				AB40554714D008B3009A583A /* update.sh in Resources */,
-				AB40554A14D00A6A009A583A /* update-discount.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
