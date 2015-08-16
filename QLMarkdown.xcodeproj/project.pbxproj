@@ -235,7 +235,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 2CA326220896AD4900168862 /* Build configuration list for PBXProject "QLMarkdown" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -334,6 +334,7 @@
 				HEADER_SEARCH_PATHS = "./discount-config";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /Library/QuickLook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fiatdev.QLMarkdown;
 				PRODUCT_NAME = QLMarkdown;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = qlgenerator;
@@ -353,6 +354,7 @@
 				HEADER_SEARCH_PATHS = "./discount-config";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /Library/QuickLook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fiatdev.QLMarkdown;
 				PRODUCT_NAME = QLMarkdown;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = qlgenerator;
@@ -374,6 +376,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

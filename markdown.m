@@ -18,10 +18,10 @@ NSData* renderMarkdown(NSURL* url)
     }
 
     NSString *NSOutput;
-    {
+    
     char *output = convert_markdown_to_string([source UTF8String]);
-        NSOutput = [[NSString alloc] initWithBytesNoCopy:output length:strlen(output) encoding:NSUTF8StringEncoding freeWhenDone:YES];
-    }
+    NSOutput = [[NSString alloc] initWithBytesNoCopy:output length:strlen(output) encoding:NSUTF8StringEncoding freeWhenDone:YES];
+    
     if (!NSOutput) {
         return nil;
     }
