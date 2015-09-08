@@ -21,7 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		0A80BFA50E21A2E200C8BF14 /* markdown.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A80BFA40E21A2E200C8BF14 /* markdown.h */; };
+		0A80BFA50E21A2E200C8BF14 /* RenderMarkdown.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A80BFA40E21A2E200C8BF14 /* RenderMarkdown.h */; };
 		0A80BFA70E21A2ED00C8BF14 /* markdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A80BFA60E21A2ED00C8BF14 /* markdown.m */; };
 		0A80BFB20E21A90900C8BF14 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A80BFB10E21A90900C8BF14 /* Cocoa.framework */; };
 		0A80BFCC0E21B61A00C8BF14 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A80BFCB0E21B61A00C8BF14 /* WebKit.framework */; };
@@ -90,7 +90,7 @@
 /* Begin PBXFileReference section */
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		08FB77B6FE84183AC02AAC07 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		0A80BFA40E21A2E200C8BF14 /* markdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = markdown.h; sourceTree = "<group>"; };
+		0A80BFA40E21A2E200C8BF14 /* RenderMarkdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderMarkdown.h; sourceTree = "<group>"; };
 		0A80BFA60E21A2ED00C8BF14 /* markdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = markdown.m; sourceTree = "<group>"; };
 		0A80BFB10E21A90900C8BF14 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0A80BFCB0E21B61A00C8BF14 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -204,7 +204,7 @@
 				2C05A19B06CAA52B00D84F6F /* GeneratePreviewForURL.m */,
 				5500865E1A9FE8DF009B49DA /* main.h */,
 				08FB77B6FE84183AC02AAC07 /* main.c */,
-				0A80BFA40E21A2E200C8BF14 /* markdown.h */,
+				0A80BFA40E21A2E200C8BF14 /* RenderMarkdown.h */,
 				0A80BFA60E21A2ED00C8BF14 /* markdown.m */,
 			);
 			name = Source;
@@ -277,7 +277,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A80BFA50E21A2E200C8BF14 /* markdown.h in Headers */,
+				0A80BFA50E21A2E200C8BF14 /* RenderMarkdown.h in Headers */,
 				4446D0060F41899C00BAC3F4 /* discount-wrapper.h in Headers */,
 				AB40554414D008B3009A583A /* config.h in Headers */,
 				AB40554514D008B3009A583A /* mkdio.h in Headers */,
@@ -530,6 +530,10 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"BUNDLEID=\\\"$(PRODUCT_BUNDLE_IDENTIFIER)\\\"",
+					"DEBUG=1",
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -562,6 +566,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "BUNDLEID=\\\"$(PRODUCT_BUNDLE_IDENTIFIER)\\\"";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -589,10 +594,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = SpotlightMarkdown/Info.plist;
 				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
 				LIBRARY_STYLE = BUNDLE;
@@ -601,7 +602,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.SpotlightMarkdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "discount-config";
+				USER_HEADER_SEARCH_PATHS = ". ./discount-config";
 				WRAPPER_EXTENSION = mdimporter;
 			};
 			name = Debug;
@@ -626,7 +627,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.SpotlightMarkdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "discount-config";
+				USER_HEADER_SEARCH_PATHS = ". ./discount-config";
 				WRAPPER_EXTENSION = mdimporter;
 			};
 			name = Release;
@@ -673,6 +674,7 @@
 				5527F3921B9F7B560091B168 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5527F3961B9F7CFF0091B168 /* Build configuration list for PBXAggregateTarget "Discount-Config" */ = {
 			isa = XCConfigurationList;
@@ -681,6 +683,7 @@
 				5527F3981B9F7CFF0091B168 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

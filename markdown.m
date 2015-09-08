@@ -1,10 +1,10 @@
 #import <Foundation/Foundation.h>
-#import "markdown.h"
+#import "RenderMarkdown.h"
 #include "discount-wrapper.h"
 
 NSData* renderMarkdown(NSURL* url)
 {
-    NSString *styles = [[NSString alloc] initWithContentsOfFile:[[NSBundle bundleWithIdentifier: @"com.fiatdev.QLMarkdown"]
+    NSString *styles = [[NSString alloc] initWithContentsOfFile:[[NSBundle bundleWithIdentifier: @BUNDLEID]
                                                            pathForResource:@"styles" ofType:@"css"]
                                                  encoding:NSUTF8StringEncoding
                                                     error:nil];

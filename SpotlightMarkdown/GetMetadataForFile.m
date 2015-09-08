@@ -6,9 +6,11 @@
 //
 //
 
+#include <CoreServices/CoreServices.h>
 #include <CoreFoundation/CoreFoundation.h>
+#import <AppKit/AppKit.h>
 #include "GetMetadataForFile.h"
-#import <Foundation/Foundation.h>
+#import "RenderMarkdown.h"
 
 //==============================================================================
 //
@@ -31,7 +33,12 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
 
     Boolean ok = FALSE;
     @autoreleasepool {
-        
+        NSString *rawString;
+        {
+            NSData *aData = renderMarkdown([NSURL fileURLWithPath:(__bridge NSString*)pathToFile]);
+            NSAttributedString *attrStr = [[NSAttributedString alloc] initWithHTML:aData documentAttributes:NULL];
+            rawString = attrStr.string;
+        }
     }
     
 	// Return the status
