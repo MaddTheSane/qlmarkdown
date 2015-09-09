@@ -28,8 +28,9 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
     @autoreleasepool {
         NSString *rawString = nil;
         NSMutableDictionary *NSattribs = (__bridge NSMutableDictionary*)attributes;
+        NSData *aData;
         do {
-            NSData *aData = renderMarkdown([NSURL fileURLWithPath:(__bridge NSString*)pathToFile]);
+            aData = renderMarkdown([NSURL fileURLWithPath:(__bridge NSString*)pathToFile]);
             if (!aData) {
                 break;
             }
@@ -41,6 +42,10 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
         } while(0);
         if (rawString) {
             NSattribs[(NSString*)kMDItemTextContent] = rawString;
+            if (&kMDItemHTMLContent) {
+                NSString *htmlStr = [[NSString alloc] initWithData:aData encoding:NSUTF8StringEncoding];
+                NSattribs[(NSString*)kMDItemHTMLContent] = htmlStr;
+            }
             ok = TRUE;
         }
     }
