@@ -29,18 +29,5 @@
 // -----------------------------------------------------------------------------
 void *QuickLookGeneratorPluginFactory(CFAllocatorRef allocator,CFUUIDRef typeID)
 {
-    void        *result;
-    CFUUIDRef    uuid;
-
-    /* If correct type is being requested, allocate an
-     * instance of kQLGeneratorTypeID and return the IUnknown interface.
-     */
-    if (CFEqual(typeID, kQLGeneratorTypeID)){
-        uuid = CFUUIDCreateFromString(kCFAllocatorDefault, CFSTR(PLUGIN_ID));
-        result = [QLMarkDownGenerator allocQuickLookGeneratorPluginType:uuid];
-        CFRelease(uuid);
-        return result;
-    }
-    /* If the requested type is incorrect, return NULL. */
-    return NULL;
+    return [QLMarkDownGenerator quickLookGeneratorPluginFactory: allocator typeID: typeID];
 }

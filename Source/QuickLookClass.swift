@@ -151,24 +151,41 @@ func cancelThumbnailGeneration(thisInstance: UnsafeMutablePointer<Void>, thumbna
     // Implement only if supported
 }
 
+/// Utility function that allocates a new instance.<br>
+///      You can do some initial setup for the generator here if you wish
+///      like allocating globals etc...
+func allocQuickLookGeneratorPluginType(inFactoryID: CFUUID) -> UnsafeMutablePointer<QLGeneratorPlugType> {
+    let theNewInstance = UnsafeMutablePointer<QLGeneratorPlugType>(calloc(sizeof(QLGeneratorPlugType), 1))
+    
+    /* Point to the function table Malloc enough to store the stuff and copy the filler from myInterfaceFtbl over */
+    theNewInstance.memory.conduitInterface = malloc(sizeof(QLGeneratorInterfaceStruct))
+    memcpy(theNewInstance.memory.conduitInterface, &myInterfaceFtbl, sizeof(QLGeneratorInterfaceStruct))
+    
+    /*  Retain and keep an open instance refcount for each factory. */
+    theNewInstance.memory.factoryID = inFactoryID
+    CFPlugInAddInstanceForFactory(inFactoryID)
+    
+    /* This function returns the IUnknown interface so set the refCount to one. */
+    theNewInstance.memory.refCount = 1;
+    return theNewInstance
+}
+
+
 final class QLMarkDownGenerator: NSObject {
     
-    /// Utility function that allocates a new instance.<br>
-    ///      You can do some initial setup for the generator here if you wish
-    ///      like allocating globals etc...
-    class func allocQuickLookGeneratorPluginType(inFactoryID: CFUUID) -> UnsafeMutablePointer<()> {
-        let theNewInstance = UnsafeMutablePointer<QLGeneratorPlugType>(calloc(sizeof(QLGeneratorPlugType), 1))
+    
+    class func quickLookGeneratorPluginFactory(allocator: CFAllocatorRef!, typeID: CFUUID) -> UnsafeMutablePointer<()> {
         
-        /* Point to the function table Malloc enough to store the stuff and copy the filler from myInterfaceFtbl over */
-        theNewInstance.memory.conduitInterface = malloc(sizeof(QLGeneratorInterfaceStruct))
-        memcpy(theNewInstance.memory.conduitInterface, &myInterfaceFtbl, sizeof(QLGeneratorInterfaceStruct))
+        /* If correct type is being requested, allocate an
+        * instance of kQLGeneratorTypeID and return the IUnknown interface.
+        */
+        if CFEqual(typeID, kQLGeneratorTypeID) {
+            let uuid = CFUUIDCreateFromString(kCFAllocatorDefault, PLUGIN_ID)
+            let result = allocQuickLookGeneratorPluginType(uuid)
+            return UnsafeMutablePointer<()>(result)
+        }
         
-        /*  Retain and keep an open instance refcount for each factory. */
-        theNewInstance.memory.factoryID = inFactoryID
-        CFPlugInAddInstanceForFactory(inFactoryID)
-        
-        /* This function returns the IUnknown interface so set the refCount to one. */
-        theNewInstance.memory.refCount = 1;
-        return UnsafeMutablePointer<()>(theNewInstance)
+        /* If the requested type is incorrect, return NULL. */
+        return nil
     }
 }
