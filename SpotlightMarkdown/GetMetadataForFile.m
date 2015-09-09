@@ -24,20 +24,24 @@
 
 Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attributes, CFStringRef contentTypeUTI, CFStringRef pathToFile)
 {
-    // Pull any available metadata from the file at the specified path
-    // Return the attribute keys and attribute values in the dict
-    // Return TRUE if successful, FALSE if there was no data provided
-	// The path could point to either a Core Data store file in which
-	// case we import the store's metadata, or it could point to a Core
-	// Data external record file for a specific record instances
-
     Boolean ok = FALSE;
     @autoreleasepool {
-        NSString *rawString;
-        {
+        NSString *rawString = nil;
+        NSMutableDictionary *NSattribs = (__bridge NSMutableDictionary*)attributes;
+        do {
             NSData *aData = renderMarkdown([NSURL fileURLWithPath:(__bridge NSString*)pathToFile]);
+            if (!aData) {
+                break;
+            }
             NSAttributedString *attrStr = [[NSAttributedString alloc] initWithHTML:aData documentAttributes:NULL];
+            if (!attrStr) {
+                break;
+            }
             rawString = attrStr.string;
+        } while(0);
+        if (rawString) {
+            NSattribs[(NSString*)kMDItemTextContent] = rawString;
+            ok = TRUE;
         }
     }
     
