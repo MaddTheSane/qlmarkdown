@@ -2,4 +2,9 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#include "discount-wrapper.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "discount/markdown.h"
+
+
+//#include "discount-wrapper.h"

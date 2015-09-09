@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0A80BFB20E21A90900C8BF14 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A80BFB10E21A90900C8BF14 /* Cocoa.framework */; };
 		0A80BFCC0E21B61A00C8BF14 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A80BFCB0E21B61A00C8BF14 /* WebKit.framework */; };
-		4446D0050F41899C00BAC3F4 /* discount-wrapper.c in Sources */ = {isa = PBXBuildFile; fileRef = 4446CFF20F41899C00BAC3F4 /* discount-wrapper.c */; };
 		4446D0060F41899C00BAC3F4 /* discount-wrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 4446CFF30F41899C00BAC3F4 /* discount-wrapper.h */; };
 		4446D0240F41AD4700BAC3F4 /* styles.css in Resources */ = {isa = PBXBuildFile; fileRef = 4446D0230F41AD4700BAC3F4 /* styles.css */; };
 		55469B5B1A6AFE6800BD0854 /* QuickLookClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55469B5A1A6AFE6800BD0854 /* QuickLookClass.swift */; };
@@ -284,7 +283,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D576312048677EA00EA77CD /* main.m in Sources */,
-				4446D0050F41899C00BAC3F4 /* discount-wrapper.c in Sources */,
 				55469B5B1A6AFE6800BD0854 /* QuickLookClass.swift in Sources */,
 				AB40555514D00CCC009A583A /* Csio.c in Sources */,
 				AB40555614D00CCC009A583A /* emmatch.c in Sources */,

@@ -32,17 +32,17 @@ struct QLGeneratorPlugType {
     var refCount: UInt32
 }
 
-var myInterfaceFtbl = QLGeneratorInterfaceStruct(_reserved: nil,
-    QueryInterface: QuickLookGeneratorQueryInterface,
-    AddRef: QuickLookGeneratorPluginAddRef,
-    Release: QuickLookGeneratorPluginRelease,
+private var myInterfaceFtbl = QLGeneratorInterfaceStruct(_reserved: nil,
+    QueryInterface: quickLookGeneratorQueryInterface,
+    AddRef: quickLookGeneratorPluginAddRef,
+    Release: quickLookGeneratorPluginRelease,
     GenerateThumbnailForURL: nil,
     CancelThumbnailGeneration: nil,
     GeneratePreviewForURL: nil,
     CancelPreviewGeneration: nil)
 
 ///Implementation of the `IUnknown` QueryInterface function.
-func QuickLookGeneratorQueryInterface(thisInstance: UnsafeMutablePointer<Void>, iid: REFIID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {
+func quickLookGeneratorQueryInterface(thisInstance: UnsafeMutablePointer<Void>, iid: REFIID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {
     let interfaceID = CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, iid)!
     
     if CFEqual(interfaceID, kQLGeneratorCallbacksInterfaceID) {
@@ -60,9 +60,8 @@ func QuickLookGeneratorQueryInterface(thisInstance: UnsafeMutablePointer<Void>, 
         tmpConInterface.memory.CancelThumbnailGeneration = cancelThumbnailGeneration
         tmpConInterface.memory.GeneratePreviewForURL = generatePreview
         tmpConInterface.memory.CancelPreviewGeneration = cancelPreviewGeneration
-
         tmpConInterface.memory.AddRef(thisInstance)
-        //QLGeneratorPlugType
+        
         ppv.memory = thisInstance
         return S_OK
     } else {
@@ -74,18 +73,18 @@ func QuickLookGeneratorQueryInterface(thisInstance: UnsafeMutablePointer<Void>, 
 ///Implementation of reference counting for this type. Whenever an interface
 ///is requested, bump the refCount for the instance. NOTE: returning the
 ///refcount is a convention but is not required so don't rely on it.
-func QuickLookGeneratorPluginAddRef(thisInstance: UnsafeMutablePointer<Void>) -> ULONG {
+func quickLookGeneratorPluginAddRef(thisInstance: UnsafeMutablePointer<Void>) -> ULONG {
     let tmpInstance = UnsafeMutablePointer<QLGeneratorPlugType>(thisInstance)
     return ++tmpInstance.memory.refCount
 }
 
 ///When an interface is released, decrement the refCount.<br>
 ///If the refCount goes to zero, deallocate the instance.
-func QuickLookGeneratorPluginRelease(thisInstance: UnsafeMutablePointer<Void>) -> ULONG {
+func quickLookGeneratorPluginRelease(thisInstance: UnsafeMutablePointer<Void>) -> ULONG {
     let anInstance = UnsafeMutablePointer<QLGeneratorPlugType>(thisInstance)
     anInstance.memory.refCount -= 1
     if anInstance.memory.refCount == 0 {
-        DeallocQuickLookGeneratorPluginType(anInstance)
+        deallocQuickLookGeneratorPluginType(anInstance)
         return 0;
     } else {
         return anInstance.memory.refCount
@@ -93,7 +92,7 @@ func QuickLookGeneratorPluginRelease(thisInstance: UnsafeMutablePointer<Void>) -
 }
 
 
-func DeallocQuickLookGeneratorPluginType(thisInstance: UnsafeMutablePointer<QLGeneratorPlugType>) {
+private func deallocQuickLookGeneratorPluginType(thisInstance: UnsafeMutablePointer<QLGeneratorPlugType>) {
     let theFactoryID = thisInstance.memory.factoryID
     thisInstance.memory.factoryID = nil
     
@@ -107,7 +106,7 @@ func DeallocQuickLookGeneratorPluginType(thisInstance: UnsafeMutablePointer<QLGe
     }
 }
 
-func generatePreview(thisInstance: UnsafeMutablePointer<Void>, preview: QLPreviewRequest!, url: CFURL!, contentTypeUTI: CFString!, options: CFDictionary!) -> OSStatus {
+private func generatePreview(thisInstance: UnsafeMutablePointer<Void>, preview: QLPreviewRequest!, url: CFURL!, contentTypeUTI: CFString!, options: CFDictionary!) -> OSStatus {
     if let data = renderMarkdown(url) {
         QLPreviewRequestSetDataRepresentation(preview, data, kUTTypeHTML, [:])
     }
@@ -172,9 +171,7 @@ func allocQuickLookGeneratorPluginType(inFactoryID: CFUUID) -> UnsafeMutablePoin
 
 
 final class QLMarkDownGenerator: NSObject {
-    
-    
-    class func quickLookGeneratorPluginFactory(allocator: CFAllocatorRef!, typeID: CFUUID) -> UnsafeMutablePointer<()> {
+    static func quickLookGeneratorPluginFactory(allocator: CFAllocatorRef!, typeID: CFUUID) -> UnsafeMutablePointer<()> {
         
         /* If correct type is being requested, allocate an
         * instance of kQLGeneratorTypeID and return the IUnknown interface.
