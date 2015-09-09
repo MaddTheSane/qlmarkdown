@@ -106,6 +106,8 @@ private func deallocQuickLookGeneratorPluginType(thisInstance: UnsafeMutablePoin
     }
 }
 
+//MARK: QuickLook functions
+
 private func generatePreview(thisInstance: UnsafeMutablePointer<Void>, preview: QLPreviewRequest!, url: CFURL!, contentTypeUTI: CFString!, options: CFDictionary!) -> OSStatus {
     if let data = renderMarkdown(url) {
         QLPreviewRequestSetDataRepresentation(preview, data, kUTTypeHTML, [:])
@@ -169,20 +171,19 @@ func allocQuickLookGeneratorPluginType(inFactoryID: CFUUID) -> UnsafeMutablePoin
     return theNewInstance
 }
 
-
 final class QLMarkDownGenerator: NSObject {
     static func quickLookGeneratorPluginFactory(allocator: CFAllocatorRef!, typeID: CFUUID) -> UnsafeMutablePointer<()> {
         
         /* If correct type is being requested, allocate an
         * instance of kQLGeneratorTypeID and return the IUnknown interface.
         */
-        if CFEqual(typeID, kQLGeneratorTypeID) {
-            let uuid = CFUUIDCreateFromString(kCFAllocatorDefault, PLUGIN_ID)
-            let result = allocQuickLookGeneratorPluginType(uuid)
-            return UnsafeMutablePointer<()>(result)
+        guard CFEqual(typeID, kQLGeneratorTypeID) else {
+            /* If the requested type is incorrect, return NULL. */
+            
+            return nil
         }
-        
-        /* If the requested type is incorrect, return NULL. */
-        return nil
+        let uuid = CFUUIDCreateFromString(kCFAllocatorDefault, PLUGIN_ID)
+        let result = allocQuickLookGeneratorPluginType(uuid)
+        return UnsafeMutablePointer<()>(result)
     }
 }
