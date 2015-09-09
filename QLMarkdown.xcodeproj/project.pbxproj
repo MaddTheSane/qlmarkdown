@@ -21,8 +21,6 @@
 		AB40554414D008B3009A583A /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = AB40553F14D008B3009A583A /* config.h */; };
 		AB40554514D008B3009A583A /* mkdio.h in Headers */ = {isa = PBXBuildFile; fileRef = AB40554014D008B3009A583A /* mkdio.h */; };
 		AB40554614D008B3009A583A /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = AB40554114D008B3009A583A /* README.markdown */; };
-		AB40554714D008B3009A583A /* update.sh in Resources */ = {isa = PBXBuildFile; fileRef = AB40554214D008B3009A583A /* update.sh */; };
-		AB40554A14D00A6A009A583A /* update-discount.sh in Resources */ = {isa = PBXBuildFile; fileRef = AB40554914D00A6A009A583A /* update-discount.sh */; };
 		AB40555514D00CCC009A583A /* Csio.c in Sources */ = {isa = PBXBuildFile; fileRef = AB40555014D00CCC009A583A /* Csio.c */; };
 		AB40555614D00CCC009A583A /* emmatch.c in Sources */ = {isa = PBXBuildFile; fileRef = AB40555114D00CCC009A583A /* emmatch.c */; };
 		AB40555714D00CCC009A583A /* generate.c in Sources */ = {isa = PBXBuildFile; fileRef = AB40555214D00CCC009A583A /* generate.c */; };
@@ -46,15 +44,14 @@
 		0A80BFB10E21A90900C8BF14 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0A80BFCB0E21B61A00C8BF14 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		2C05A19B06CAA52B00D84F6F /* GeneratePreviewForURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratePreviewForURL.m; sourceTree = "<group>"; };
 		4446CFF20F41899C00BAC3F4 /* discount-wrapper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "discount-wrapper.c"; sourceTree = "<group>"; };
 		4446CFF30F41899C00BAC3F4 /* discount-wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "discount-wrapper.h"; sourceTree = "<group>"; };
 		4446D0230F41AD4700BAC3F4 /* styles.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = styles.css; sourceTree = "<group>"; };
-		5500865E1A9FE8DF009B49DA /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		553BE86D1A6B0C3400495CCB /* QLMarkdown.exp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.exports; name = QLMarkdown.exp; path = Resources/QLMarkdown.exp; sourceTree = "<group>"; };
 		55469B591A6AFE6700BD0854 /* QLMarkdown-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QLMarkdown-Bridging-Header.h"; sourceTree = "<group>"; };
 		55469B5A1A6AFE6800BD0854 /* QuickLookClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuickLookClass.swift; path = Source/QuickLookClass.swift; sourceTree = "<group>"; };
 		55654A5B1A6B25AA008E9315 /* markdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = markdown.swift; path = Source/markdown.swift; sourceTree = "<group>"; };
+		55D6FC531BA0BDBC00DE2E3C /* cstring.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cstring.h; sourceTree = "<group>"; };
 		8D576316048677EA00EA77CD /* QLMarkdown.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QLMarkdown.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D576317048677EA00EA77CD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AB40553E14D008B3009A583A /* blocktags */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blocktags; sourceTree = "<group>"; };
@@ -159,6 +156,7 @@
 		4446CFDF0F41898200BAC3F4 /* discount */ = {
 			isa = PBXGroup;
 			children = (
+				55D6FC531BA0BDBC00DE2E3C /* cstring.h */,
 				AB40555A14D00CFD009A583A /* markdown.c */,
 				AB40555B14D00CFD009A583A /* markdown.h */,
 				AB40555C14D00CFD009A583A /* mkdio.c */,
@@ -232,7 +230,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 2CA326220896AD4900168862 /* Build configuration list for PBXProject "QLMarkdown" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -259,8 +257,6 @@
 				4446D0240F41AD4700BAC3F4 /* styles.css in Resources */,
 				AB40554314D008B3009A583A /* blocktags in Resources */,
 				AB40554614D008B3009A583A /* README.markdown in Resources */,
-				AB40554714D008B3009A583A /* update.sh in Resources */,
-				AB40554A14D00A6A009A583A /* update-discount.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +330,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /Library/QuickLook;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fiatdev.QLMarkdown;
 				PRODUCT_NAME = QLMarkdown;
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "QLMarkdown-Bridging-Header.h";
@@ -356,6 +353,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /Library/QuickLook;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fiatdev.QLMarkdown;
 				PRODUCT_NAME = QLMarkdown;
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "QLMarkdown-Bridging-Header.h";
@@ -378,6 +376,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

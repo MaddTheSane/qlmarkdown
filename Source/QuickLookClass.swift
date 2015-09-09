@@ -15,7 +15,7 @@ import WebKit
 private let MINIMUM_ASPECT_RATIO: CGFloat = 1.0 / 2.0
 
 
-@objc final class QLMarkDownGenerator {
+final class QLMarkDownGenerator: NSObject {
 	@objc(generatePreview:forURL:contentTypeUTI:options:) class func generatePreview(preview: QLPreviewRequest, url: CFURL, contentTypeUTI: CFString, options: CFDictionary) -> OSStatus {
 		if let data = renderMarkdown(url) {
             QLPreviewRequestSetDataRepresentation(preview, data, kUTTypeHTML, [:])
@@ -29,7 +29,7 @@ private let MINIMUM_ASPECT_RATIO: CGFloat = 1.0 / 2.0
 	
 	@objc(generateThumbnail:forURL:contentTypeUTI:options:maxSize:) class func generateThumbnail(thumbnail: QLThumbnailRequest, url: CFURL, contentTypeUTI: CFString, options: CFDictionary, maxSize: CGSize) -> OSStatus {
 		if let data = renderMarkdown(url) {
-			var viewRect = NSRect(x: 0, y: 0, width: 600, height: 800)
+			let viewRect = NSRect(x: 0, y: 0, width: 600, height: 800)
 			let scale = maxSize.height / 800.0
 			let scaleSize = NSSize(width: scale, height: scale)
 			let thumbSize = NSSize(width: maxSize.width * (600.0 / 800.0), height: maxSize.height)
@@ -40,12 +40,12 @@ private let MINIMUM_ASPECT_RATIO: CGFloat = 1.0 / 2.0
 			webView.mainFrame.loadData(data, MIMEType: "text/html", textEncodingName: "utf-8", baseURL: nil)
 			
 			while webView.loading {
-				CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, 1)
+				CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, true)
 			}
 			
 			webView.display()
 			
-			if let context = QLThumbnailRequestCreateContext(thumbnail, thumbSize, 0, nil)?.takeRetainedValue() {
+			if let context = QLThumbnailRequestCreateContext(thumbnail, thumbSize, false, nil)?.takeRetainedValue() {
 				let nsContext = NSGraphicsContext(CGContext: context, flipped: webView.flipped)
 				webView.displayRectIgnoringOpacity(webView.bounds, inContext: nsContext)
 				
