@@ -22,15 +22,21 @@
 //
 //==============================================================================
 
+static BOOL GetMetadataForNSURL(void *thisInterface, NSMutableDictionary *attributes, NSString *contentTypeUTI, NSURL *URLToFile);
+
 Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attributes, CFStringRef contentTypeUTI, CFStringRef pathToFile)
 {
-    Boolean ok = FALSE;
     @autoreleasepool {
+        return GetMetadataForNSURL(thisInterface, (__bridge NSMutableDictionary *)(attributes), (__bridge NSString *)(contentTypeUTI), [NSURL fileURLWithPath:(__bridge NSString *)(pathToFile)]);
+    }
+}
+
+static BOOL GetMetadataForNSURL(void *thisInterface, NSMutableDictionary *attributes, NSString *contentTypeUTI, NSURL *URLToFile){
+    BOOL ok = NO;
         NSString *rawString = nil;
-        NSMutableDictionary *NSattribs = (__bridge NSMutableDictionary*)attributes;
         NSData *aData;
         do {
-            aData = renderMarkdown([NSURL fileURLWithPath:(__bridge NSString*)pathToFile]);
+            aData = renderMarkdown(URLToFile);
             if (!aData) {
                 break;
             }
@@ -41,14 +47,13 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
             rawString = attrStr.string;
         } while(0);
         if (rawString) {
-            NSattribs[(NSString*)kMDItemTextContent] = rawString;
+            attributes[(NSString*)kMDItemTextContent] = rawString;
             if (&kMDItemHTMLContent) {
                 NSString *htmlStr = [[NSString alloc] initWithData:aData encoding:NSUTF8StringEncoding];
-                NSattribs[(NSString*)kMDItemHTMLContent] = htmlStr;
+                attributes[(NSString*)kMDItemHTMLContent] = htmlStr;
             }
-            ok = TRUE;
+            ok = YES;
         }
-    }
     
 	// Return the status
     return ok;
