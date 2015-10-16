@@ -4,10 +4,11 @@
 
 NSData* renderMarkdown(NSURL* url)
 {
-    NSString *styles = [[NSString alloc] initWithContentsOfFile:[[NSBundle bundleWithIdentifier: @BUNDLEID]
-                                                           pathForResource:@"styles" ofType:@"css"]
-                                                 encoding:NSUTF8StringEncoding
-                                                    error:nil];
+    NSString *styles = [[NSString alloc] initWithContentsOfURL:
+                        [[NSBundle bundleWithIdentifier: @BUNDLEID]
+                         URLForResource:@"styles" withExtension:@"css"]
+                                                      encoding:NSUTF8StringEncoding
+                                                         error:nil];
 
     NSStringEncoding usedEncoding = 0;
 
@@ -18,19 +19,23 @@ NSData* renderMarkdown(NSURL* url)
     }
 
     NSString *NSOutput;
-    
-    char *output = convert_markdown_to_string([source UTF8String]);
-    NSOutput = [[NSString alloc] initWithBytesNoCopy:output length:strlen(output) encoding:NSUTF8StringEncoding freeWhenDone:YES];
-    
+	{
+		char *output = convert_markdown_to_string([source UTF8String]);
+		if (!output) {
+			return nil;
+		}
+		NSOutput = [[NSString alloc] initWithBytesNoCopy:output length:strlen(output) encoding:NSUTF8StringEncoding freeWhenDone:YES];
+	}
+	
     if (!NSOutput) {
         return nil;
     }
-    NSString *html = [NSString stringWithFormat:@"<!DOCTYPE html>"
-                                                 "<meta charset=utf-8>"
-                                                 "<style>%@</style>"
-                                                 "<base href=\"%@\"/>"
-                                                 "%@",
-                                                 styles, url, NSOutput];
+    NSString *html = [[NSString alloc] initWithFormat:@"<!DOCTYPE html>"
+                                                       "<meta charset=utf-8>"
+                                                       "<style>%@</style>"
+                                                       "<base href=\"%@\"/>"
+                                                       "%@",
+                                                       styles, url, NSOutput];
 
     return [html dataUsingEncoding:NSUTF8StringEncoding];
 }

@@ -53,11 +53,11 @@ typedef struct __QuickLookGeneratorPluginType
 //
 
 static QLGeneratorPlugType	*AllocQuickLookGeneratorPluginType(CFUUIDRef inFactoryID);
-static void					DeallocQuickLookGeneratorPluginType(QLGeneratorPlugType *thisInstance);
-static HRESULT				QuickLookGeneratorQueryInterface(void *thisInstance,REFIID iid,LPVOID *ppv);
+static void					 DeallocQuickLookGeneratorPluginType(QLGeneratorPlugType *thisInstance);
+static HRESULT				 QuickLookGeneratorQueryInterface(void *thisInstance,REFIID iid,LPVOID *ppv);
 extern void					*QuickLookGeneratorPluginFactory(CFAllocatorRef allocator,CFUUIDRef typeID);
-static ULONG				QuickLookGeneratorPluginAddRef(void *thisInstance);
-static ULONG				QuickLookGeneratorPluginRelease(void *thisInstance);
+static ULONG				 QuickLookGeneratorPluginAddRef(void *thisInstance);
+static ULONG				 QuickLookGeneratorPluginRelease(void *thisInstance);
 
 // -----------------------------------------------------------------------------
 //	myInterfaceFtbl	definition
