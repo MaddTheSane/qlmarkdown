@@ -1,7 +1,7 @@
 #include <QuickLook/QuickLook.h>
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
-#import "markdown.h"
+#import "RenderMarkdown.h"
 #include "main.h"
 
 /* -----------------------------------------------------------------------------
