@@ -1,4 +1,4 @@
-﻿/* Localized versions of Info.plist keys */
+/* Localized versions of Info.plist keys */
 
 CFBundleGetInfoString = "QLMarkdown version 1.3.3, Copyright © 2008 Phillip Toland.";
 NSHumanReadableCopyright = "Copyright © 2008 Phillip Toland.";

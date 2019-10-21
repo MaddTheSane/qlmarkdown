@@ -26,7 +26,9 @@ private func convertMarkDownToString(_ str: String) -> String? {
 }
 
 internal func renderMarkdown(url: URL) -> Data? {
-    guard let aBund = Bundle(identifier: "com.fiatdev.QLMarkdown"), let abundRes = aBund.url(forResource: "styles", withExtension: "css"), let styles = try? String(contentsOf: abundRes, encoding: .utf8) else {
+    guard let aBund = Bundle(identifier: "com.fiatdev.QLMarkdown"),
+        let abundRes = aBund.url(forResource: "styles", withExtension: "css"),
+        let styles = try? String(contentsOf: abundRes, encoding: .utf8) else {
         return nil
     }
     var usedEncoding: String.Encoding = String.Encoding(rawValue: 0)
