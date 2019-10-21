@@ -8,9 +8,9 @@
 
 import Foundation
 
-private func convertMarkDownToString(str: String) -> String? {
-    let cStr = str.cStringUsingEncoding(NSUTF8StringEncoding)!
-    var out = UnsafeMutablePointer<Int8>()
+private func convertMarkDownToString(_ str: String) -> String? {
+    let cStr = str.cString(using: .utf8)!
+    var out: UnsafeMutablePointer<Int8>? = nil
     let blob = mkd_string(cStr, Int32(cStr.count - 1), 0)
     mkd_compile(blob, 0)
     let sz = mkd_document(blob, &out)
@@ -18,29 +18,29 @@ private func convertMarkDownToString(str: String) -> String? {
     if sz == 0 {
         return nil
     } else {
-        out[sz - 1] = 0
+        out?[Int(sz) - 1] = 0
     }
-    let aStr = String.fromCString(out)
+    let aStr = String(cString: out!)
     free(out)
     return aStr
 }
 
-internal func renderMarkdown(url: NSURL) -> NSData? {
-    guard let aBund = NSBundle(identifier: "com.fiatdev.QLMarkdown"), abundRes = aBund.URLForResource("styles", withExtension: "css"), styles = try? String(contentsOfURL: abundRes, encoding: NSUTF8StringEncoding) else {
+internal func renderMarkdown(url: URL) -> Data? {
+    guard let aBund = Bundle(identifier: "com.fiatdev.QLMarkdown"), let abundRes = aBund.url(forResource: "styles", withExtension: "css"), let styles = try? String(contentsOf: abundRes, encoding: .utf8) else {
         return nil
     }
-    var usedEncoding: NSStringEncoding = 0
+    var usedEncoding: String.Encoding = String.Encoding(rawValue: 0)
     
-    guard let source = try? String(contentsOfURL: url, usedEncoding: &usedEncoding)  else {
+    guard let source = try? String(contentsOf: url, usedEncoding: &usedEncoding)  else {
         return nil
     }
-    if usedEncoding == 0 {
-        NSLog("Wasn't able to determine encoding for file “%@”", url.path!)
+    if usedEncoding.rawValue == 0 {
+        NSLog("Wasn't able to determine encoding for file “%@”", url.path)
     }
     if let output = convertMarkDownToString(source) {
         let html = "<!DOCTYPE html>\n<meta charset=utf-8>\n<style>\(styles)</style>\n<base href=\"\(url)\"/>\(output)"
         
-        return html.dataUsingEncoding(NSUTF8StringEncoding)
+        return html.data(using: .utf8)
     }
     
     return nil

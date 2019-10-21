@@ -27,8 +27,8 @@ private let E_NOINTERFACE = HRESULT(bitPattern: 0x80000004)
 private let MINIMUM_ASPECT_RATIO: CGFloat = 1.0 / 2.0
 
 struct QLGeneratorPlugType {
-    var conduitInterface: UnsafeMutablePointer<()>
-    var factoryID: CFUUIDRef!
+    var conduitInterface: UnsafeMutableRawPointer
+    var factoryID: CFUUID!
     var refCount: UInt32
 }
 
@@ -42,7 +42,7 @@ private var myInterfaceFtbl = QLGeneratorInterfaceStruct(_reserved: nil,
     CancelPreviewGeneration: nil)
 
 ///Implementation of the `IUnknown` QueryInterface function.
-func quickLookGeneratorQueryInterface(thisInstance: UnsafeMutablePointer<Void>, iid: REFIID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {
+func quickLookGeneratorQueryInterface(thisInstance: UnsafeMutableRawPointer?, iid: REFIID, ppv: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
     let interfaceID = CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, iid)!
     
     if CFEqual(interfaceID, kQLGeneratorCallbacksInterfaceID) {
@@ -52,20 +52,20 @@ func quickLookGeneratorQueryInterface(thisInstance: UnsafeMutablePointer<Void>, 
         */
 
         let tmpConInterface: UnsafeMutablePointer<QLGeneratorInterfaceStruct> = {
-            let tmpInterface = UnsafeMutablePointer<QLGeneratorPlugType>(thisInstance)
-            return UnsafeMutablePointer<QLGeneratorInterfaceStruct>(tmpInterface.memory.conduitInterface)
+            let tmpInterface = thisInstance?.assumingMemoryBound(to: QLGeneratorPlugType.self)
+            return tmpInterface!.pointee.conduitInterface.assumingMemoryBound(to: QLGeneratorInterfaceStruct.self)
             }()
         
-        tmpConInterface.memory.GenerateThumbnailForURL = generateThumbnail
-        tmpConInterface.memory.CancelThumbnailGeneration = cancelThumbnailGeneration
-        tmpConInterface.memory.GeneratePreviewForURL = generatePreview
-        tmpConInterface.memory.CancelPreviewGeneration = cancelPreviewGeneration
-        tmpConInterface.memory.AddRef(thisInstance)
+        tmpConInterface.pointee.GenerateThumbnailForURL = generateThumbnail
+        tmpConInterface.pointee.CancelThumbnailGeneration = cancelThumbnailGeneration
+        tmpConInterface.pointee.GeneratePreviewForURL = generatePreview
+        tmpConInterface.pointee.CancelPreviewGeneration = cancelPreviewGeneration
+        _=tmpConInterface.pointee.AddRef(thisInstance)
         
-        ppv.memory = thisInstance
+        ppv?.pointee = thisInstance
         return S_OK
     } else {
-        ppv.memory = nil
+        ppv?.pointee = nil
         return E_NOINTERFACE
     }
 }
@@ -73,31 +73,32 @@ func quickLookGeneratorQueryInterface(thisInstance: UnsafeMutablePointer<Void>, 
 ///Implementation of reference counting for this type. Whenever an interface
 ///is requested, bump the refCount for the instance. NOTE: returning the
 ///refcount is a convention but is not required so don't rely on it.
-func quickLookGeneratorPluginAddRef(thisInstance: UnsafeMutablePointer<Void>) -> ULONG {
-    let tmpInstance = UnsafeMutablePointer<QLGeneratorPlugType>(thisInstance)
-    return ++tmpInstance.memory.refCount
+func quickLookGeneratorPluginAddRef(thisInstance: UnsafeMutableRawPointer?) -> ULONG {
+    let tmpInstance = thisInstance!.assumingMemoryBound(to: QLGeneratorPlugType.self)
+    tmpInstance.pointee.refCount += 1
+    return tmpInstance.pointee.refCount
 }
 
 ///When an interface is released, decrement the refCount.<br>
 ///If the refCount goes to zero, deallocate the instance.
-func quickLookGeneratorPluginRelease(thisInstance: UnsafeMutablePointer<Void>) -> ULONG {
-    let anInstance = UnsafeMutablePointer<QLGeneratorPlugType>(thisInstance)
-    anInstance.memory.refCount -= 1
-    if anInstance.memory.refCount == 0 {
+func quickLookGeneratorPluginRelease(thisInstance: UnsafeMutableRawPointer?) -> ULONG {
+    let anInstance = thisInstance!.assumingMemoryBound(to: QLGeneratorPlugType.self)
+    anInstance.pointee.refCount -= 1
+    if anInstance.pointee.refCount == 0 {
         deallocQuickLookGeneratorPluginType(anInstance)
         return 0;
     } else {
-        return anInstance.memory.refCount
+        return anInstance.pointee.refCount
     }
 }
 
 
-private func deallocQuickLookGeneratorPluginType(thisInstance: UnsafeMutablePointer<QLGeneratorPlugType>) {
-    let theFactoryID = thisInstance.memory.factoryID
-    thisInstance.memory.factoryID = nil
+private func deallocQuickLookGeneratorPluginType(_ thisInstance: UnsafeMutablePointer<QLGeneratorPlugType>) {
+    let theFactoryID = thisInstance.pointee.factoryID
+    thisInstance.pointee.factoryID = nil
     
     /* Free the conduitInterface table up */
-    free(thisInstance.memory.conduitInterface);
+    free(thisInstance.pointee.conduitInterface);
     
     /* Free the instance structure */
     free(thisInstance);
@@ -108,38 +109,40 @@ private func deallocQuickLookGeneratorPluginType(thisInstance: UnsafeMutablePoin
 
 //MARK: QuickLook functions
 
-private func generatePreview(thisInstance: UnsafeMutablePointer<Void>, preview: QLPreviewRequest!, url: CFURL!, contentTypeUTI: CFString!, options: CFDictionary!) -> OSStatus {
-    if let data = renderMarkdown(url) {
-        QLPreviewRequestSetDataRepresentation(preview, data, kUTTypeHTML, [:])
+private func generatePreview(thisInstance: UnsafeMutableRawPointer?, preview: QLPreviewRequest?, url: CFURL?, contentTypeUTI: CFString?, options: CFDictionary?) -> OSStatus {
+    if let data = renderMarkdown(url: url! as URL) {
+        let props = [kQLPreviewPropertyTextEncodingNameKey as String: "UTF-8",
+                     kQLPreviewPropertyMIMETypeKey as String: "text/html"]
+        QLPreviewRequestSetDataRepresentation(preview, data as CFData, kUTTypeHTML, props as NSDictionary)
     }
     return noErr
 }
 
-func cancelPreviewGeneration(thisInstance: UnsafeMutablePointer<Void>, preview: QLPreviewRequest!) {
+func cancelPreviewGeneration(thisInstance: UnsafeMutableRawPointer?, preview: QLPreviewRequest?) {
     // Implement only if supported
 }
 
-func generateThumbnail(thisInstance: UnsafeMutablePointer<Void>, thumbnail: QLThumbnailRequest!, url: CFURL!, contentTypeUTI: CFString!, options: CFDictionary!, maxSize: CGSize) -> OSStatus {
-    if let data = renderMarkdown(url) {
+func generateThumbnail(thisInstance: UnsafeMutableRawPointer?, thumbnail: QLThumbnailRequest?, url: CFURL?, contentTypeUTI: CFString?, options: CFDictionary?, maxSize: CGSize) -> OSStatus {
+    if let data = renderMarkdown(url: url! as URL) {
         let viewRect = NSRect(x: 0, y: 0, width: 600, height: 800)
         let scale = maxSize.height / 800.0
         let scaleSize = NSSize(width: scale, height: scale)
         let thumbSize = NSSize(width: maxSize.width * (600.0 / 800.0), height: maxSize.height)
         
         let webView = WebView(frame: viewRect)
-        webView.scaleUnitSquareToSize(scaleSize)
+        webView.scaleUnitSquare(to: scaleSize)
         webView.mainFrame.frameView.allowsScrolling = false
-        webView.mainFrame.loadData(data, MIMEType: "text/html", textEncodingName: "utf-8", baseURL: nil)
+        webView.mainFrame.load(data, mimeType: "text/html", textEncodingName: "utf-8", baseURL: nil)
         
-        while webView.loading {
-            CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, true)
+        while webView.isLoading {
+            CFRunLoopRunInMode(CFRunLoopMode.defaultMode, 0, true)
         }
         
         webView.display()
         
         if let context = QLThumbnailRequestCreateContext(thumbnail, thumbSize, false, nil)?.takeRetainedValue() {
-            let nsContext = NSGraphicsContext(CGContext: context, flipped: webView.flipped)
-            webView.displayRectIgnoringOpacity(webView.bounds, inContext: nsContext)
+            let nsContext = NSGraphicsContext(cgContext: context, flipped: webView.isFlipped)
+            webView.displayIgnoringOpacity(webView.bounds, in: nsContext)
             
             QLThumbnailRequestFlushContext(thumbnail, context);
         }
@@ -148,31 +151,31 @@ func generateThumbnail(thisInstance: UnsafeMutablePointer<Void>, thumbnail: QLTh
     return noErr;
 }
 
-func cancelThumbnailGeneration(thisInstance: UnsafeMutablePointer<Void>, thumbnail: QLThumbnailRequest!) {
+func cancelThumbnailGeneration(thisInstance: UnsafeMutableRawPointer?, thumbnail: QLThumbnailRequest?) {
     // Implement only if supported
 }
 
 /// Utility function that allocates a new instance.<br>
 ///      You can do some initial setup for the generator here if you wish
 ///      like allocating globals etc...
-func allocQuickLookGeneratorPluginType(inFactoryID: CFUUID) -> UnsafeMutablePointer<QLGeneratorPlugType> {
-    let theNewInstance = UnsafeMutablePointer<QLGeneratorPlugType>(calloc(sizeof(QLGeneratorPlugType), 1))
+func allocQuickLookGeneratorPluginType(_ inFactoryID: CFUUID) -> UnsafeMutablePointer<QLGeneratorPlugType> {
+    let theNewInstance = calloc(MemoryLayout<QLGeneratorPlugType>.alignment, 1).assumingMemoryBound(to: QLGeneratorPlugType.self)
     
     /* Point to the function table Malloc enough to store the stuff and copy the filler from myInterfaceFtbl over */
-    theNewInstance.memory.conduitInterface = malloc(sizeof(QLGeneratorInterfaceStruct))
-    memcpy(theNewInstance.memory.conduitInterface, &myInterfaceFtbl, sizeof(QLGeneratorInterfaceStruct))
+    theNewInstance.pointee.conduitInterface = malloc(MemoryLayout<QLGeneratorInterfaceStruct>.alignment)
+    memcpy(theNewInstance.pointee.conduitInterface, &myInterfaceFtbl, MemoryLayout<QLGeneratorInterfaceStruct>.alignment)
     
     /*  Retain and keep an open instance refcount for each factory. */
-    theNewInstance.memory.factoryID = inFactoryID
+    theNewInstance.pointee.factoryID = inFactoryID
     CFPlugInAddInstanceForFactory(inFactoryID)
     
     /* This function returns the IUnknown interface so set the refCount to one. */
-    theNewInstance.memory.refCount = 1;
+    theNewInstance.pointee.refCount = 1;
     return theNewInstance
 }
 
 final class QLMarkDownGenerator: NSObject {
-    static func quickLookGeneratorPluginFactory(allocator: CFAllocatorRef!, typeID: CFUUID) -> UnsafeMutablePointer<()> {
+    @objc static func quickLookGeneratorPluginFactory(_ allocator: CFAllocator!, typeID: CFUUID) -> UnsafeMutableRawPointer? {
         
         /* If correct type is being requested, allocate an
         * instance of kQLGeneratorTypeID and return the IUnknown interface.
@@ -182,8 +185,8 @@ final class QLMarkDownGenerator: NSObject {
             
             return nil
         }
-        let uuid = CFUUIDCreateFromString(kCFAllocatorDefault, PLUGIN_ID)
+        let uuid = CFUUIDCreateFromString(kCFAllocatorDefault, PLUGIN_ID as CFString)!
         let result = allocQuickLookGeneratorPluginType(uuid)
-        return UnsafeMutablePointer<()>(result)
+        return UnsafeMutableRawPointer(result)
     }
 }

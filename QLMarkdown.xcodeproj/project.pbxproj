@@ -38,7 +38,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		08FB77B6FE84183AC02AAC07 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0A80BFB10E21A90900C8BF14 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0A80BFCB0E21B61A00C8BF14 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -50,6 +49,7 @@
 		55469B591A6AFE6700BD0854 /* QLMarkdown-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QLMarkdown-Bridging-Header.h"; sourceTree = "<group>"; };
 		55469B5A1A6AFE6800BD0854 /* QuickLookClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuickLookClass.swift; path = Source/QuickLookClass.swift; sourceTree = "<group>"; };
 		55654A5B1A6B25AA008E9315 /* markdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = markdown.swift; path = Source/markdown.swift; sourceTree = "<group>"; };
+		55871EFF235E2F8B00528BDF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55D6FC531BA0BDBC00DE2E3C /* cstring.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cstring.h; sourceTree = "<group>"; };
 		8D576316048677EA00EA77CD /* QLMarkdown.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QLMarkdown.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D576317048677EA00EA77CD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 			};
 			buildConfigurationList = 2CA326220896AD4900168862 /* Build configuration list for PBXProject "QLMarkdown" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
@@ -304,7 +304,7 @@
 		8D5B49A704867FD3000E48DA /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				089C167EFE841241C02AAC07 /* English */,
+				55871EFF235E2F8B00528BDF /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -389,6 +389,7 @@
 				OTHER_SWIFT_FLAGS = "-DDEBUG $(inherited)";
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
@@ -419,6 +420,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
