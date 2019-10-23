@@ -110,12 +110,14 @@ private func deallocQuickLookGeneratorPluginType(_ thisInstance: UnsafeMutablePo
 //MARK: QuickLook functions
 
 private func generatePreview(thisInstance: UnsafeMutableRawPointer?, preview: QLPreviewRequest?, url: CFURL?, contentTypeUTI: CFString?, options: CFDictionary?) -> OSStatus {
-    if let data = renderMarkdown(url: url! as URL) {
-        let props = [kQLPreviewPropertyTextEncodingNameKey as String: "UTF-8",
-                     kQLPreviewPropertyMIMETypeKey as String: "text/html"]
-        QLPreviewRequestSetDataRepresentation(preview, data as CFData, kUTTypeHTML, props as NSDictionary)
+    return autoreleasepool { () -> OSStatus in
+        if let data = renderMarkdown(url: url! as URL) {
+            let props = [kQLPreviewPropertyTextEncodingNameKey as String: "UTF-8",
+                         kQLPreviewPropertyMIMETypeKey as String: "text/html"]
+            QLPreviewRequestSetDataRepresentation(preview, data as CFData, kUTTypeHTML, props as NSDictionary)
+        }
+        return noErr
     }
-    return noErr
 }
 
 private func cancelPreviewGeneration(thisInstance: UnsafeMutableRawPointer?, preview: QLPreviewRequest?) {
@@ -123,32 +125,34 @@ private func cancelPreviewGeneration(thisInstance: UnsafeMutableRawPointer?, pre
 }
 
 private func generateThumbnail(thisInstance: UnsafeMutableRawPointer?, thumbnail: QLThumbnailRequest?, url: CFURL?, contentTypeUTI: CFString?, options: CFDictionary?, maxSize: CGSize) -> OSStatus {
-    if let data = renderMarkdown(url: url! as URL) {
-        let viewRect = NSRect(x: 0, y: 0, width: 600, height: 800)
-        let scale = maxSize.height / 800.0
-        let scaleSize = NSSize(width: scale, height: scale)
-        let thumbSize = NSSize(width: maxSize.width * (600.0 / 800.0), height: maxSize.height)
-        
-        let webView = WebView(frame: viewRect)
-        webView.scaleUnitSquare(to: scaleSize)
-        webView.mainFrame.frameView.allowsScrolling = false
-        webView.mainFrame.load(data, mimeType: "text/html", textEncodingName: "utf-8", baseURL: nil)
-        
-        while webView.isLoading {
-            CFRunLoopRunInMode(CFRunLoopMode.defaultMode, 0, true)
-        }
-        
-        webView.display()
-        
-        if let context = QLThumbnailRequestCreateContext(thumbnail, thumbSize, false, nil)?.takeRetainedValue() {
-            let nsContext = NSGraphicsContext(cgContext: context, flipped: webView.isFlipped)
-            webView.displayIgnoringOpacity(webView.bounds, in: nsContext)
+    return autoreleasepool { () -> OSStatus in
+        if let data = renderMarkdown(url: url! as URL) {
+            let viewRect = NSRect(x: 0, y: 0, width: 600, height: 800)
+            let scale = maxSize.height / 800.0
+            let scaleSize = NSSize(width: scale, height: scale)
+            let thumbSize = NSSize(width: maxSize.width * (600.0 / 800.0), height: maxSize.height)
             
-            QLThumbnailRequestFlushContext(thumbnail, context);
+            let webView = WebView(frame: viewRect)
+            webView.scaleUnitSquare(to: scaleSize)
+            webView.mainFrame.frameView.allowsScrolling = false
+            webView.mainFrame.load(data, mimeType: "text/html", textEncodingName: "utf-8", baseURL: nil)
+            
+            while webView.isLoading {
+                CFRunLoopRunInMode(CFRunLoopMode.defaultMode, 0, true)
+            }
+            
+            webView.display()
+            
+            if let context = QLThumbnailRequestCreateContext(thumbnail, thumbSize, false, nil)?.takeRetainedValue() {
+                let nsContext = NSGraphicsContext(cgContext: context, flipped: webView.isFlipped)
+                webView.displayIgnoringOpacity(webView.bounds, in: nsContext)
+                
+                QLThumbnailRequestFlushContext(thumbnail, context);
+            }
         }
+        
+        return noErr;
     }
-    
-    return noErr;
 }
 
 private func cancelThumbnailGeneration(thisInstance: UnsafeMutableRawPointer?, thumbnail: QLThumbnailRequest?) {

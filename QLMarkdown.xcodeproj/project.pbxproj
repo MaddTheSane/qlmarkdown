@@ -53,7 +53,7 @@
 		55D6FC531BA0BDBC00DE2E3C /* cstring.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cstring.h; sourceTree = "<group>"; };
 		8D576316048677EA00EA77CD /* QLMarkdown.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QLMarkdown.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D576317048677EA00EA77CD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		AB40553E14D008B3009A583A /* blocktags */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blocktags; sourceTree = "<group>"; };
+		AB40553E14D008B3009A583A /* blocktags */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = blocktags; sourceTree = "<group>"; };
 		AB40553F14D008B3009A583A /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		AB40554014D008B3009A583A /* mkdio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mkdio.h; sourceTree = "<group>"; };
 		AB40554114D008B3009A583A /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
