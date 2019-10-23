@@ -9,7 +9,7 @@
 import Foundation
 
 private func convertMarkDownToString(_ str: String) -> String? {
-    let cStr = str.cString(using: .utf8)!
+    let cStr = Array(str.utf8CString)
     var out: UnsafeMutablePointer<Int8>? = nil
     let blob = mkd_string(cStr, Int32(cStr.count - 1), 0)
     mkd_compile(blob, 0)
