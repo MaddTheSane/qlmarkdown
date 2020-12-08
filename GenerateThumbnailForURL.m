@@ -30,12 +30,13 @@ OSStatus GenerateThumbnailForURL(void *thisInterface,
 		CGSize thumbSize = NSMakeSize((maxSize.width * (600.0/800.0)),
                                       maxSize.height);
 
-        WKWebView* webView = [[WKWebView alloc] initWithFrame: viewRect];
+        WebView* webView = [[WebView alloc] initWithFrame: viewRect];
 		[webView scaleUnitSquareToSize: scaleSize];
-        [webView loadData: data
-                 MIMEType: @"text/html"
-    characterEncodingName: @"utf-8"
-                  baseURL:(__bridge NSURL * _Nonnull)(url)];
+        webView.mainFrame.frameView.allowsScrolling = NO;
+        [webView.mainFrame loadData: data
+                           MIMEType: @"text/html"
+                   textEncodingName: @"utf-8"
+                            baseURL: nil];
 
 		while([webView isLoading]) {
 			CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, true);
