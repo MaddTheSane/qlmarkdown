@@ -17,6 +17,10 @@ NSData* renderMarkdown(NSURL* url)
     if (usedEncoding == 0) {
         NSLog(@"Wasn't able to determine encoding for file “%@”", [url path]);
     }
+    if (!source) {
+        NSLog(@"Wasn't able to generate text from “%@”", [url path]);
+        return nil;
+    }
 
     NSString *NSOutput;
 	{
