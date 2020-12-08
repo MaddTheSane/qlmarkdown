@@ -22,6 +22,12 @@
 		5527F3A11B9F7D620091B168 /* blocktags in Resources */ = {isa = PBXBuildFile; fileRef = AB40553E14D008B3009A583A /* blocktags */; };
 		5527F3AE1B9F7E4F0091B168 /* markdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A80BFA60E21A2ED00C8BF14 /* markdown.m */; };
 		55A5BD64257F191D005AE311 /* flags.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A5BD63257F191D005AE311 /* flags.c */; };
+		55A5BD80257F8289005AE311 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A5BD7F257F8289005AE311 /* Quartz.framework */; };
+		55A5BD83257F8289005AE311 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5BD82257F8289005AE311 /* PreviewViewController.swift */; };
+		55A5BD86257F8289005AE311 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A5BD84257F8289005AE311 /* PreviewViewController.xib */; };
+		55A5BD92257F82D8005AE311 /* libdiscount.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D6FC3E1B9FEDAF00DE2E3C /* libdiscount.a */; };
+		55A5BDA8257F86D1005AE311 /* DiscountWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5BDA7257F86D1005AE311 /* DiscountWrapper.swift */; };
+		55A5BDD1257F8F99005AE311 /* styles.css in Resources */ = {isa = PBXBuildFile; fileRef = 4446D0230F41AD4700BAC3F4 /* styles.css */; };
 		55D6FC421B9FEE0300DE2E3C /* markdown.c in Sources */ = {isa = PBXBuildFile; fileRef = AB40555A14D00CFD009A583A /* markdown.c */; };
 		55D6FC431B9FEE0300DE2E3C /* mkdio.c in Sources */ = {isa = PBXBuildFile; fileRef = AB40555C14D00CFD009A583A /* mkdio.c */; };
 		55D6FC441B9FEE0300DE2E3C /* resource.c in Sources */ = {isa = PBXBuildFile; fileRef = AB40555D14D00CFD009A583A /* resource.c */; };
@@ -50,6 +56,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		55A5BD90257F82D1005AE311 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55D6FC3D1B9FEDAF00DE2E3C;
+			remoteInfo = discount;
+		};
 		55D6FC4D1B9FEE8200DE2E3C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
@@ -86,6 +99,14 @@
 		5527F3941B9F7B860091B168 /* GetMetadataForFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetMetadataForFile.h; sourceTree = "<group>"; };
 		553BE86D1A6B0C3400495CCB /* QLMarkdown.exp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.exports; name = QLMarkdown.exp; path = Resources/QLMarkdown.exp; sourceTree = "<group>"; };
 		55A5BD63257F191D005AE311 /* flags.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = flags.c; sourceTree = "<group>"; };
+		55A5BD7E257F8289005AE311 /* QLMarkdown2.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = QLMarkdown2.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		55A5BD7F257F8289005AE311 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		55A5BD82257F8289005AE311 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		55A5BD85257F8289005AE311 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreviewViewController.xib; sourceTree = "<group>"; };
+		55A5BD87257F8289005AE311 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55A5BD88257F8289005AE311 /* QLMarkdown2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QLMarkdown2.entitlements; sourceTree = "<group>"; };
+		55A5BD97257F864B005AE311 /* QLMarkdown2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QLMarkdown2-Bridging-Header.h"; sourceTree = "<group>"; };
+		55A5BDA7257F86D1005AE311 /* DiscountWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountWrapper.swift; sourceTree = "<group>"; };
 		55D6FC3E1B9FEDAF00DE2E3C /* libdiscount.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdiscount.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D6FC531BA0BDBC00DE2E3C /* cstring.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cstring.h; sourceTree = "<group>"; };
 		61E3BCFA0870B4F2002186A0 /* GenerateThumbnailForURL.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GenerateThumbnailForURL.m; sourceTree = "<group>"; };
@@ -123,6 +144,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55A5BD7B257F8289005AE311 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55A5BD92257F82D8005AE311 /* libdiscount.a in Frameworks */,
+				55A5BD80257F8289005AE311 /* Quartz.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55D6FC3B1B9FEDAF00DE2E3C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -155,6 +185,7 @@
 				08FB77AFFE84173DC02AAC07 /* Source */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				5527F3861B9F7B560091B168 /* SpotlightMarkdown */,
+				55A5BD81257F8289005AE311 /* QLMarkdown2 */,
 				089C1671FE841209C02AAC07 /* Frameworks */,
 				19C28FB6FE9D52B211CA2CBB /* Products */,
 			);
@@ -171,6 +202,7 @@
 				F28CFBFC0A3EC0AF000ABFF5 /* ApplicationServices.framework */,
 				C86B05260671AA6E00DD9006 /* CoreServices.framework */,
 				0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */,
+				55A5BD7F257F8289005AE311 /* Quartz.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -207,6 +239,7 @@
 				8D576316048677EA00EA77CD /* QLMarkdown.qlgenerator */,
 				5527F3851B9F7B560091B168 /* SpotlightMarkdown.mdimporter */,
 				55D6FC3E1B9FEDAF00DE2E3C /* libdiscount.a */,
+				55A5BD7E257F8289005AE311 /* QLMarkdown2.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -249,6 +282,19 @@
 				5527F3881B9F7B560091B168 /* main.c */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		55A5BD81257F8289005AE311 /* QLMarkdown2 */ = {
+			isa = PBXGroup;
+			children = (
+				55A5BD97257F864B005AE311 /* QLMarkdown2-Bridging-Header.h */,
+				55A5BD82257F8289005AE311 /* PreviewViewController.swift */,
+				55A5BD84257F8289005AE311 /* PreviewViewController.xib */,
+				55A5BD87257F8289005AE311 /* Info.plist */,
+				55A5BD88257F8289005AE311 /* QLMarkdown2.entitlements */,
+				55A5BDA7257F86D1005AE311 /* DiscountWrapper.swift */,
+			);
+			path = QLMarkdown2;
 			sourceTree = "<group>";
 		};
 		AB40553D14D008B3009A583A /* discount-config */ = {
@@ -308,6 +354,24 @@
 			productReference = 5527F3851B9F7B560091B168 /* SpotlightMarkdown.mdimporter */;
 			productType = "com.apple.product-type.spotlight-importer";
 		};
+		55A5BD7D257F8289005AE311 /* QLMarkdown2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55A5BD8B257F8289005AE311 /* Build configuration list for PBXNativeTarget "QLMarkdown2" */;
+			buildPhases = (
+				55A5BD7A257F8289005AE311 /* Sources */,
+				55A5BD7B257F8289005AE311 /* Frameworks */,
+				55A5BD7C257F8289005AE311 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55A5BD91257F82D1005AE311 /* PBXTargetDependency */,
+			);
+			name = QLMarkdown2;
+			productName = QLMarkdown2;
+			productReference = 55A5BD7E257F8289005AE311 /* QLMarkdown2.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		55D6FC3D1B9FEDAF00DE2E3C /* discount */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55D6FC411B9FEDAF00DE2E3C /* Build configuration list for PBXNativeTarget "discount" */;
@@ -352,10 +416,16 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1220;
 				LastUpgradeCheck = 1220;
 				TargetAttributes = {
 					5527F3841B9F7B560091B168 = {
 						CreatedOnToolsVersion = 7.0;
+					};
+					55A5BD7D257F8289005AE311 = {
+						CreatedOnToolsVersion = 12.2;
+						LastSwiftMigration = 1220;
+						ProvisioningStyle = Automatic;
 					};
 					55D6FC3D1B9FEDAF00DE2E3C = {
 						CreatedOnToolsVersion = 7.0;
@@ -368,6 +438,7 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* QLMarkdown */;
 			projectDirPath = "";
@@ -376,6 +447,7 @@
 				55D6FC3D1B9FEDAF00DE2E3C /* discount */,
 				8D57630D048677EA00EA77CD /* QLMarkdown */,
 				5527F3841B9F7B560091B168 /* SpotlightMarkdown */,
+				55A5BD7D257F8289005AE311 /* QLMarkdown2 */,
 			);
 		};
 /* End PBXProject section */
@@ -387,6 +459,15 @@
 			files = (
 				5527F39E1B9F7D3E0091B168 /* styles.css in Resources */,
 				5527F3A11B9F7D620091B168 /* blocktags in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55A5BD7C257F8289005AE311 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55A5BD86257F8289005AE311 /* PreviewViewController.xib in Resources */,
+				55A5BDD1257F8F99005AE311 /* styles.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +512,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55A5BD7A257F8289005AE311 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55A5BDA8257F86D1005AE311 /* DiscountWrapper.swift in Sources */,
+				55A5BD83257F8289005AE311 /* PreviewViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55D6FC3A1B9FEDAF00DE2E3C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -464,6 +554,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		55A5BD91257F82D1005AE311 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55D6FC3D1B9FEDAF00DE2E3C /* discount */;
+			targetProxy = 55A5BD90257F82D1005AE311 /* PBXContainerItemProxy */;
+		};
 		55D6FC4E1B9FEE8200DE2E3C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 55D6FC3D1B9FEDAF00DE2E3C /* discount */;
@@ -477,6 +572,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		55A5BD84257F8289005AE311 /* PreviewViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A5BD85257F8289005AE311 /* Base */,
+			);
+			name = PreviewViewController.xib;
+			sourceTree = "<group>";
+		};
 		8D5B49A704867FD3000E48DA /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -535,6 +638,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -544,6 +649,7 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -556,6 +662,7 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -589,6 +696,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -598,6 +707,7 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -610,6 +720,7 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -663,6 +774,71 @@
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "./discount-config";
 				WRAPPER_EXTENSION = mdimporter;
+			};
+			name = Release;
+		};
+		55A5BD89257F8289005AE311 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = QLMarkdown2/QLMarkdown2.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = QLMarkdown2/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-DBUNDLEID=\\\"$(PRODUCT_BUNDLE_IDENTIFIER)\\\"";
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.MaddTheSane.QLMarkdown2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "QLMarkdown2/QLMarkdown2-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				USER_HEADER_SEARCH_PATHS = "./discount-config .";
+			};
+			name = Debug;
+		};
+		55A5BD8A257F8289005AE311 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = QLMarkdown2/QLMarkdown2.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = QLMarkdown2/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-DBUNDLEID=\\\"$(PRODUCT_BUNDLE_IDENTIFIER)\\\"";
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.MaddTheSane.QLMarkdown2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "QLMarkdown2/QLMarkdown2-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				USER_HEADER_SEARCH_PATHS = "./discount-config .";
 			};
 			name = Release;
 		};
@@ -724,6 +900,15 @@
 			buildConfigurations = (
 				5527F3911B9F7B560091B168 /* Debug */,
 				5527F3921B9F7B560091B168 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55A5BD8B257F8289005AE311 /* Build configuration list for PBXNativeTarget "QLMarkdown2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55A5BD89257F8289005AE311 /* Debug */,
+				55A5BD8A257F8289005AE311 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
